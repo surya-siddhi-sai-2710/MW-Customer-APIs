@@ -1,0 +1,11 @@
+{
+    "GetEmployerDetailsResponse": {
+        "success": {
+            "cif": "2314AE",
+            "employerAccountNumber": "ACC1253430",
+            "employerCode": "1020",
+            "employerName": "surya",
+            "annualFeeAmount": 10000
+        }
+    }
+}
