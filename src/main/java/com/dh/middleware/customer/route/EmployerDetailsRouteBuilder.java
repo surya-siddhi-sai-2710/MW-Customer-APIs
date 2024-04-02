@@ -38,7 +38,7 @@ public class EmployerDetailsRouteBuilder extends RouteBuilder {
 //		.to("bean:ODSDBConnectorImplDao?method=GetEmployerDetails")
 		
 		.to("{{ODSDBConnector.host}}{{ODSDBConnector.contextPath}}"+"/v1/GetEmployerDetails?bridgeEndpoint=true")
-
+		
 		.choice()
 			.when().simple("${body} != null")
 				.to("bean:employerDetailsService?method=prepaResponseBackend")

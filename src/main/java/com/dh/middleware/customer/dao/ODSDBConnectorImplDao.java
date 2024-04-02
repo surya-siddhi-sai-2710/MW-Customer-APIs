@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.camel.language.simple.Simple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,16 +29,16 @@ public class ODSDBConnectorImplDao {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-//	public JsonNode GetEmployerDetails(@Simple("${body[GetEmployerDetailsRequest][cif]}") String cif,
-//			@Simple("${body[GetEmployerDetailsRequest][accountNumber]}") String accountNumber, 
-//			Exchange ex)
-//			throws Exception {
+	public ObjectNode GetEmployerDetails(@Simple("${body[GetEmployerDetailsRequest][cif]}") String cif,
+			@Simple("${body[GetEmployerDetailsRequest][accountNumber]}") String accountNumber, 
+			Exchange ex)
+			throws Exception {
+
+
+//	public ObjectNode GetEmployerDetails( @Body JsonNode body,
+//				Exchange ex) throws Exception{	
 //
-
-	public ObjectNode GetEmployerDetails( @Body JsonNode body,
-				Exchange ex) throws Exception{	
-
-		JsonNode EmployerDetailsNode = body.get("GetEmployerDetailsRequest");
+//		JsonNode EmployerDetailsNode = body.get("GetEmployerDetailsRequest");
 
 		Connection conn = null;
 		CallableStatement pstmt = null;
@@ -49,10 +50,10 @@ public class ODSDBConnectorImplDao {
 			String strProcedure = "CALL GET_EMPLOYER_DETAILS(?,?,?)";
 			pstmt = conn.prepareCall(strProcedure);
 
-//			pstmt.setString(1, cif);
-//			pstmt.setString(2, accountNumber);
-			pstmt.setString(1, EmployerDetailsNode.path("cif").asText());
-			pstmt.setString(2, EmployerDetailsNode.path("accountNumber").asText());
+			pstmt.setString(1, cif);
+			pstmt.setString(2, accountNumber);
+//			pstmt.setString(1, EmployerDetailsNode.path("cif").asText());
+//			pstmt.setString(2, EmployerDetailsNode.path("accountNumber").asText());
 			pstmt.registerOutParameter(3, OracleTypes.CURSOR);
 
 			pstmt.execute();
