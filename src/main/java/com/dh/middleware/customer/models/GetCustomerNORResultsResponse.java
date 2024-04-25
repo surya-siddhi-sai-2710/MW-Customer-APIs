@@ -1,29 +1,33 @@
 
-
 package com.dh.middleware.customer.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "GetEmployerDetailsResponse" })
-public class GetEmployerDetailsResponse {
+@JsonPropertyOrder({ "GetCustomerNORResultsResponse" })
+public class GetCustomerNORResultsResponse {
 
 	@JsonProperty("success")
-	protected GetEmployerDetailsSuccessType success;
+	private Success success;
 
-	public GetEmployerDetailsSuccessType getSuccess() {
+	public Success getSuccess() {
 		return success;
 	}
 
-	public void setSuccess(GetEmployerDetailsSuccessType value) {
-		this.success = value;
+	public void setSuccess(Success success) {
+		this.success = success;
 	}
 
 	@Override
 	public String toString() {
-		return "GetEmployerDetailsResponse [success=" + success + "]";
+		return "GetCustomerNORResultsResponse [success=" + success + "]";
 	}
+	
+	
 
+    
 }

@@ -1,0 +1,17 @@
+{
+    "GetCustomerNORResultsResponse": {
+        "SR_NO": "1",
+        "EMPLOYEE_ID": "12345",
+        "RM_POSITION": "Relationship Manager",
+        "GROUPED_BY": "Group A",
+        "SELECTED_CATEGORY": "Category X",
+        "CIF": "123AB",
+        "MONTH": "Jan",
+        "YEAR_ID": "2024",
+        "QUARTER": "Q1",
+        "CATEGORY": "Sales",
+        "SUB_TYPE": "Type A",
+        "MONTH_ACTUAL": "10000",
+        "YTD_ACTUAL": "50000"
+    }
+}

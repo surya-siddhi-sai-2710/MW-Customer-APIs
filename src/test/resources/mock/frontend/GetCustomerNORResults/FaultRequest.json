@@ -1,0 +1,9 @@
+{
+    "GetCustomerNORResultsRequest": {
+    "employeeId": "12345",
+    "rmPosition": "Relationship Manager",
+    "groupedBy": "Group A",
+    "selectedCategory": "Category X",
+    "cif": "123A"
+  }
+}
