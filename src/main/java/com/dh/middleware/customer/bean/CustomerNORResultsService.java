@@ -9,10 +9,10 @@ import org.apache.camel.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.alahli.middleware.utility.Utils.StringUtil;
 import com.dh.middleware.customer.models.GetCustomerNORResultsRequest;
-import com.dh.middleware.customer.models.GetCustomerNORResultsRequestType;
 import com.dh.middleware.customer.models.GetCustomerNORResultsResponse;
-import com.dh.middleware.customer.models.GetCustomerNORResultsResponseType;
+import com.dh.middleware.customer.models.GetCustomerNORResultsType;
 import com.dh.middleware.customer.models.ServiceHeader;
 import com.dh.middleware.customer.models.Success;
 import com.dh.middleware.customer.models.backend.ods.CustomerNORResultsRequest;
@@ -30,15 +30,18 @@ public class CustomerNORResultsService {
 
 	private ServiceHeader oServiceHeader;
 	
+	@Autowired
+	StringUtil oStringUtil;
+	
 	public  GetCustomerNORResultsRequest oGetCustomerNORResultsRequest;
 	
 	@Autowired
 	ObjectMapper objectMapper;
 	
-	public void setCustomerNORResultsRequestIn( GetCustomerNORResultsRequestType getCustomerNORResultsRequestType,
+	public void setCustomerNORResultsRequestIn( GetCustomerNORResultsType getCustomerNORResultsRequestType,
 			@Header("ServiceHeader") String serviceHeader, Exchange ex) throws Exception{
 		
-		oGetCustomerNORResultsRequest = getCustomerNORResultsRequestType.getCustomerNORResultsRequest();
+		this.oGetCustomerNORResultsRequest = getCustomerNORResultsRequestType.getCustomerNORResultsRequest();
 		
 		oServiceHeader = objectMapper.readValue(serviceHeader, ServiceHeader.class);
 	}
@@ -48,11 +51,11 @@ public class CustomerNORResultsService {
 		CustomerNORResultsRequestType oCustomerNORResultsRequestType = new CustomerNORResultsRequestType();
 		CustomerNORResultsRequest oCustomerNORResultsRequest = new CustomerNORResultsRequest();
 		
-		oCustomerNORResultsRequest.setEmployeeId(oGetCustomerNORResultsRequest.getEmployeeId());
+		oCustomerNORResultsRequest.setEmployeeId(oStringUtil.setDefaultValue(oGetCustomerNORResultsRequest.getEmployeeId(), " "));
 		oCustomerNORResultsRequest.setRmPosition(oGetCustomerNORResultsRequest.getRmPosition());
 		oCustomerNORResultsRequest.setGroupedBy(oGetCustomerNORResultsRequest.getGroupedBy());
 		oCustomerNORResultsRequest.setSelectedCategory(oGetCustomerNORResultsRequest.getSelectedCategory());
-		oCustomerNORResultsRequest.setCif(oGetCustomerNORResultsRequest.getCif());
+		oCustomerNORResultsRequest.setCif(oStringUtil.setDefaultValue(oGetCustomerNORResultsRequest.getCif(), " "));
 		
 		oCustomerNORResultsRequestType.setCustomerNORResultsRequest(oCustomerNORResultsRequest);
 		return oCustomerNORResultsRequestType;
@@ -89,9 +92,9 @@ public class CustomerNORResultsService {
 	}
 	
 	
-	public GetCustomerNORResultsResponseType prepareCustomerNORResultsResponse(CustomerNORResultsResponseType oCustomerNORResultsResponseType) throws Exception{
+	public GetCustomerNORResultsType prepareCustomerNORResultsResponse(CustomerNORResultsResponseType oCustomerNORResultsResponseType) throws Exception{
 		
-		GetCustomerNORResultsResponseType oGetCustomerNORResultsResponseType = new GetCustomerNORResultsResponseType();
+		GetCustomerNORResultsType oGetCustomerNORResultsResponseType = new GetCustomerNORResultsType();
 		GetCustomerNORResultsResponse oGetCustomerNORResultsResponse = new GetCustomerNORResultsResponse();
 		Success oSuccess = new Success();
 		List<Record> oRecordList = new ArrayList<Record>();

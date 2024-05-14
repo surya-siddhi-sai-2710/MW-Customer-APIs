@@ -6,11 +6,11 @@ import org.apache.camel.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.alahli.middleware.utility.Utils.StringUtil;
+import com.dh.middleware.customer.models.GetEmployerDetails;
 import com.dh.middleware.customer.models.GetEmployerDetailsRequest;
 import com.dh.middleware.customer.models.GetEmployerDetailsResponse;
 import com.dh.middleware.customer.models.GetEmployerDetailsSuccessType;
-import com.dh.middleware.customer.models.GetEmployerRequest;
-import com.dh.middleware.customer.models.GetEmployerResponse;
 import com.dh.middleware.customer.models.ServiceHeader;
 import com.dh.middleware.customer.models.backend.ods.EmployerDetailsRequest;
 import com.dh.middleware.customer.models.backend.ods.EmployerDetailsResponse;
@@ -25,6 +25,9 @@ public class EmployerDetailsService {
 
 //	public GetEmployerRequest oGetEmployerRequest;
 	public GetEmployerDetailsRequest employerDetailsRequest;
+	
+	@Autowired
+	StringUtil oStringUtil;
 
 	private ServiceHeader oServiceHeader;
 
@@ -32,7 +35,7 @@ public class EmployerDetailsService {
 	ObjectMapper objectMapper;
 
 //	initilization request
-	public void setEmployerDetailsRequestIn(GetEmployerRequest oGetEmployerRequest,
+	public void setEmployerDetailsRequestIn(GetEmployerDetails oGetEmployerRequest,
 			@Header("ServiceHeader") String serviceHeader, Exchange ex) throws Exception {
 
 		employerDetailsRequest = oGetEmployerRequest.getEmployerDetailsRequest();
@@ -47,7 +50,7 @@ public class EmployerDetailsService {
 		EmployerRequest employerRequestBackend = new EmployerRequest();
 		EmployerDetailsRequest detailsRequestBackend = new EmployerDetailsRequest();
 		
-		detailsRequestBackend.setCif(employerDetailsRequest.getCif());
+		detailsRequestBackend.setCif(oStringUtil.setDefaultValue(employerDetailsRequest.getCif(),""));
 		detailsRequestBackend.setAccountNumber(employerDetailsRequest.getAccountNumber());
 		employerRequestBackend.setoEmployerDetailsRequest(detailsRequestBackend);
 
@@ -77,11 +80,12 @@ public class EmployerDetailsService {
 	}
 
 //	Response mapping from backend to frontend model classes
-	public GetEmployerResponse prepareEmployerDetailsResponse(EmployerResponse oGetEmployerResponseBackend)
+	public GetEmployerDetails prepareEmployerDetailsResponse(EmployerResponse oGetEmployerResponseBackend)
 			throws Exception {
 
-		GetEmployerResponse employerResponse = new GetEmployerResponse();
+		GetEmployerDetails employerResponse = new GetEmployerDetails();
 		GetEmployerDetailsResponse detailsResponse = new GetEmployerDetailsResponse();
+		
 		GetEmployerDetailsSuccessType detailsSuccessType = new GetEmployerDetailsSuccessType();
 
 		detailsSuccessType.setCif(
@@ -99,5 +103,6 @@ public class EmployerDetailsService {
 		employerResponse.setoGetEmployerDetailsResponse(detailsResponse);
 
 		return employerResponse;
+		
 	}
 }

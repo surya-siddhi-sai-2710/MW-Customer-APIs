@@ -1,14 +1,12 @@
 
-package com.dh.middleware.customer.route;
+package com.dh.middleware.customer.route.external;
 
-import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
 
-import com.dh.middleware.customer.models.GetCustomerNORResultsRequest;
-import com.dh.middleware.customer.models.GetCustomerNORResultsRequestType;
+import com.dh.middleware.customer.models.GetCustomerNORResultsType;
 import com.dh.middleware.customer.models.backend.ods.CustomerNORResultsRequest;
 
 @Component
@@ -20,24 +18,25 @@ public class CustomerNORResultsRouteBuilder extends RouteBuilder{
 		restConfiguration().bindingMode(RestBindingMode.json);
 		
 		 rest("/api/customer")
-		.post("/v1/GetCustomerNORRestuls/")
+		.post("/v1/GetCustomerNORRestuls")
 		.consumes("application/json")
 		.produces("application/json")
-		.type(GetCustomerNORResultsRequestType.class)
+		.type(GetCustomerNORResultsType.class)
 		.to("direct:getCustomerNORRestulsRoute");
 		 
-		 onException(Exception.class).log("inside exception")
-		.to("bean:utils?method=onException(${exchange},\"CustomerNORResultsResponse\",\"MW\")")
-		.log("Exception" + "${exception}")
-		.handled(true).setHeader(Exchange.HTTP_RESPONSE_CODE, constant(500));
+		 onException(Exception.class)
+		.to("bean:oUtils?method=onException(${exchange},\"CustomerNORResultsResponse\",${header.system})")
+		.handled(true);
 		 
-		 from("direct:getCustomerNORRestulsRoute").routeId("getCustomerNORRestulsRoute")
+		from("direct:getCustomerNORRestulsRoute").routeId("GetCustomerNORRestuls")
+		.setHeader("system",constant("MW"))
 		.to("bean:customerNORResultsService?method=setCustomerNORResultsRequestIn")
 		.to("bean:customerNORResultsService?method=prepareCustomerNORResultsRequest")
 		
 		.marshal(new JacksonDataFormat(CustomerNORResultsRequest.class))
 		
 //		.to("bean:ODSDBConnectorImplDao?method=GetCustomerNORREsults")
+		.setHeader("system",constant("ODS"))
 		.to("{{ODSDBConnector.host}}{{ODSDBConnector.contextPath}}"+"/v1/GetCustomerNORREsults?bridgeEndpoint=true")
 		
 		.choice()
@@ -47,7 +46,7 @@ public class CustomerNORResultsRouteBuilder extends RouteBuilder{
 				.setHeader("Content-Type", constant("application/json"))
 		
 			.otherwise()
-					.to("bean:utils?method=prepareFaultNodeStr(\"CustomerNORResultsResponse\",\"RECORDNOTFOUND\",\"\",\"\",\"\",\"sysOrAppWithoutBkndError\",${exchange})")
+					.to("bean:oUtils?method=prepareFaultNodeStr(\"CustomerNORResultsResponse\",\"RECORDNOTFOUND\",\"\",\"\",\"\",\"sysOrAppWithoutBkndError\",${exchange})")
 		.endChoice();
 	}
 }

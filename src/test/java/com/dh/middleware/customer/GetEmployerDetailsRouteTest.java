@@ -26,8 +26,7 @@ import org.apache.camel.test.spring.junit5.UseAdviceWith;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.dh.middleware.customer.models.GetEmployerRequest;
-import com.dh.middleware.customer.models.GetEmployerResponse;
+import com.dh.middleware.customer.models.GetEmployerDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
@@ -97,12 +96,12 @@ public class GetEmployerDetailsRouteTest {
 
 		camelContext.start();
 
-		GetEmployerRequest oGetEmployerRequest = objectMapper.readValue(getDetailsRequest, GetEmployerRequest.class);
+		GetEmployerDetails oGetEmployerRequest = objectMapper.readValue(getDetailsRequest, GetEmployerDetails.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");
 
-		GetEmployerResponse successResponse = producerTemplate.requestBodyAndHeaders("direct:getEmployerDetailsRoute", oGetEmployerRequest,  headers, GetEmployerResponse.class);
+		GetEmployerDetails successResponse = producerTemplate.requestBodyAndHeaders("direct:getEmployerDetailsRoute", oGetEmployerRequest,  headers, GetEmployerDetails.class);
 
 //		String successResponse = producerTemplate.requestBodyAndHeaders("direct:getEmployerDetailsRoute",
 //				oGetEmployerRequest, headers, String.class);
@@ -150,7 +149,7 @@ public class GetEmployerDetailsRouteTest {
 
 		camelContext.start();
 
-		GetEmployerRequest oGetEmployerRequest = objectMapper.readValue(getDetailsRequest, GetEmployerRequest.class);
+		GetEmployerDetails oGetEmployerRequest = objectMapper.readValue(getDetailsRequest, GetEmployerDetails.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");

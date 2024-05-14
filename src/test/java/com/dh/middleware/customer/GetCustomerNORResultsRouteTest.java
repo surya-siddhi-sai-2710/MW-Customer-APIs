@@ -23,8 +23,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.dh.middleware.customer.models.GetCustomerNORResultsRequestType;
-import com.dh.middleware.customer.models.GetCustomerNORResultsResponseType;
+import com.dh.middleware.customer.models.GetCustomerNORResultsType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
@@ -93,12 +92,12 @@ public class GetCustomerNORResultsRouteTest {
 
 		camelContext.start();
 
-		GetCustomerNORResultsRequestType oGetCustomerNORResultsRequest = objectMapper.readValue(getDetailsRequest, GetCustomerNORResultsRequestType.class);
+		GetCustomerNORResultsType oGetCustomerNORResultsRequest = objectMapper.readValue(getDetailsRequest, GetCustomerNORResultsType.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");
 
-		GetCustomerNORResultsResponseType successResponse = producerTemplate.requestBodyAndHeaders("direct:getCustomerNORRestulsRoute", oGetCustomerNORResultsRequest,  headers, GetCustomerNORResultsResponseType.class);
+		GetCustomerNORResultsType successResponse = producerTemplate.requestBodyAndHeaders("direct:getCustomerNORRestulsRoute", oGetCustomerNORResultsRequest,  headers, GetCustomerNORResultsType.class);
 
 		System.out.println("GetCustomerNORResultsResponse " + successResponse.getCustomerNORResultsResponse().getSuccess().getRecord());
 
@@ -140,7 +139,7 @@ public class GetCustomerNORResultsRouteTest {
 
 		camelContext.start();
 
-		GetCustomerNORResultsRequestType oGetCustomerNORResultsRequest = objectMapper.readValue(getDetailsRequest, GetCustomerNORResultsRequestType.class);
+		GetCustomerNORResultsType oGetCustomerNORResultsRequest = objectMapper.readValue(getDetailsRequest, GetCustomerNORResultsType.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");
