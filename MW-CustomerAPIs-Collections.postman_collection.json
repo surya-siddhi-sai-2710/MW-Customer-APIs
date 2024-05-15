@@ -1,0 +1,834 @@
+{
+	"info": {
+		"_postman_id": "8fb80dd7-3f08-41b2-8d08-d230ca8e6347",
+		"name": "MW-CustomerAPIs-Collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30041423"
+	},
+	"item": [
+		{
+			"name": "GetEmployerDetails",
+			"item": [
+				{
+					"name": "GetEmployerDetails_SuccessResponse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"GetEmployerDetailsRequest\": {\r\n    \"cif\": \"2314AE\",\r\n    \"accountNumber\": \"ACC1253430\"\r\n  }\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/customer/v1/GetEmployerDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetEmployerDetails"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "http://localhost:8086/api/customer/v1/GetEmployerDetails",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "ServiceHeader",
+										"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"GetEmployerDetailsRequest\": {\r\n    \"cif\": \"2314AE\",\r\n    \"accountNumber\": \"ACC1253430\"\r\n  }\r\n}   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/api/customer/v1/GetEmployerDetails",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"customer",
+										"v1",
+										"GetEmployerDetails"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "accept",
+									"value": "*/*"
+								},
+								{
+									"key": "accept-encoding",
+									"value": "gzip, deflate, br"
+								},
+								{
+									"key": "beanpath",
+									"value": "com.dh.middleware.customer.dao.ODSDBConnectorImplDao"
+								},
+								{
+									"key": "operation",
+									"value": "GetEmployerDetails"
+								},
+								{
+									"key": "postman-token",
+									"value": "aa7e6832-55bd-46e9-975f-67693b0120e3"
+								},
+								{
+									"key": "serviceheader",
+									"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}"
+								},
+								{
+									"key": "system",
+									"value": "ODS"
+								},
+								{
+									"key": "user-agent",
+									"value": "PostmanRuntime/7.37.3"
+								},
+								{
+									"key": "version",
+									"value": "v1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 08:21:32 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"GetEmployerDetailsResponse\": {\n        \"success\": {\n            \"cif\": \"2314AE\",\n            \"employerAccountNumber\": \"ACC1253430\",\n            \"employerCode\": \"EMP001\",\n            \"employerName\": \"Surya\",\n            \"annualFeeAmount\": 50000\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GetEmployerDetails_ODSDB_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"GetEmployerDetailsRequest\": {\r\n    \"cif\": \"2314AE\",\r\n    \"accountNumber\": \"ACC1253430\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/connector/db/odsdb/v1/GetEmployerDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"connector",
+								"db",
+								"odsdb",
+								"v1",
+								"GetEmployerDetails"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "http://localhost:8084/api/connector/db/odsdb/v1/GetEmployerDetails",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "ServiceHeader",
+										"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"GetEmployerDetailsRequest\": {\r\n    \"cif\": \"2314AE\",\r\n    \"accountNumber\": \"ACC1253430\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8084/api/connector/db/odsdb/v1/GetEmployerDetails",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"api",
+										"connector",
+										"db",
+										"odsdb",
+										"v1",
+										"GetEmployerDetails"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Accept",
+									"value": "*/*"
+								},
+								{
+									"key": "Postman-Token",
+									"value": "4559c41f-79cd-489d-ad2a-0ba4cd75bda0"
+								},
+								{
+									"key": "operation",
+									"value": "GetEmployerDetails"
+								},
+								{
+									"key": "beanpath",
+									"value": "com.dh.middleware.customer.dao.ODSDBConnectorImplDao"
+								},
+								{
+									"key": "Accept-Encoding",
+									"value": "gzip, deflate, br"
+								},
+								{
+									"key": "User-Agent",
+									"value": "PostmanRuntime/7.37.3"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 14:01:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "version",
+									"value": "v1"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "ServiceHeader",
+									"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"GetEmployerDetailsResponse\": {\n        \"CIF\": \"2314AE\",\n        \"ACCNO\": \"ACC1253430\",\n        \"EMPCODE\": \"EMP001\",\n        \"NAME\": \"Surya\",\n        \"ANNUALFEEAMOUNT\": \"50000\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GetEmployerDetails_Fault_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"GetEmployerDetailsRequest\": {\r\n    \"cif\": \"2314A\",\r\n    \"accountNumber\": \"ACC1253430\"\r\n  }\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/customer/v1/GetEmployerDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetEmployerDetails"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "SuccessResponse",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "ServiceHeader",
+										"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"GetEmployerDetailsRequest\": {\r\n    \"cif\": \"2314A\",\r\n    \"accountNumber\": \"ACC1253430\"\r\n  }\r\n}   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/api/customer/v1/GetEmployerDetails",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"customer",
+										"v1",
+										"GetEmployerDetails"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "accept",
+									"value": "*/*"
+								},
+								{
+									"key": "accept-encoding",
+									"value": "gzip, deflate, br"
+								},
+								{
+									"key": "beanpath",
+									"value": "com.dh.middleware.customer.dao.ODSDBConnectorImplDao"
+								},
+								{
+									"key": "operation",
+									"value": "GetEmployerDetails"
+								},
+								{
+									"key": "postman-token",
+									"value": "7fe89124-d401-4922-a531-9cb4a1e1eaf0"
+								},
+								{
+									"key": "serviceheader",
+									"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}"
+								},
+								{
+									"key": "system",
+									"value": "ODS"
+								},
+								{
+									"key": "user-agent",
+									"value": "PostmanRuntime/7.37.3"
+								},
+								{
+									"key": "version",
+									"value": "v1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 14:02:47 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"EmployerDetailsResponse\": {\n        \"fault\": {\n            \"number\": 30,\n            \"description\": \"Record not found\",\n            \"system\": \"MW\",\n            \"nativeError\": \"\",\n            \"nativeDescription\": \"\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GetCustomerNORResults",
+			"item": [
+				{
+					"name": "GetCustomerNORResults_ODSDB_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GetCustomerNORResultsRequest\": {\r\n    \"employeeId\": \"12345\",\r\n    \"rmPosition\": \"Relationship Manager\",\r\n    \"groupedBy\": \"Group A\",\r\n    \"selectedCategory\": \"Category X\",\r\n    \"cif\": \"123AB\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/connector/db/odsdb/v1/GetCustomerNORREsults",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"connector",
+								"db",
+								"odsdb",
+								"v1",
+								"GetCustomerNORREsults"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "http://localhost:8084/api/connector/db/odsdb/v1/GetCustomerNORREsults",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "ServiceHeader",
+										"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"GetCustomerNORResultsRequest\": {\r\n    \"employeeId\": \"12345\",\r\n    \"rmPosition\": \"Relationship Manager\",\r\n    \"groupedBy\": \"Group A\",\r\n    \"selectedCategory\": \"Category X\",\r\n    \"cif\": \"123AB\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8084/api/connector/db/odsdb/v1/GetCustomerNORREsults",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8084",
+									"path": [
+										"api",
+										"connector",
+										"db",
+										"odsdb",
+										"v1",
+										"GetCustomerNORREsults"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Accept",
+									"value": "*/*"
+								},
+								{
+									"key": "Postman-Token",
+									"value": "d879775d-33cf-46d9-b0c0-67b7ab8d6035"
+								},
+								{
+									"key": "operation",
+									"value": "GetCustomerNORREsults"
+								},
+								{
+									"key": "beanpath",
+									"value": "com.dh.middleware.customer.dao.ODSDBConnectorImplDao"
+								},
+								{
+									"key": "Accept-Encoding",
+									"value": "gzip, deflate, br"
+								},
+								{
+									"key": "User-Agent",
+									"value": "PostmanRuntime/7.37.3"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 14:05:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "version",
+									"value": "v1"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "ServiceHeader",
+									"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"GetCustomerNORResultsResponse\": {\n        \"SR_NO\": \"1\",\n        \"EMPLOYEE_ID\": \"12345\",\n        \"RM_POSITION\": \"Relationship Manager\",\n        \"GROUPED_BY\": \"Group A\",\n        \"SELECTED_CATEGORY\": \"Category X\",\n        \"CIF\": \"123AB\",\n        \"MONTH\": \"Jan\",\n        \"YEAR_ID\": \"2024\",\n        \"QUARTER\": \"Q1\",\n        \"CATEGORY\": \"Sales\",\n        \"SUB_TYPE\": \"Type A\",\n        \"MONTH_ACTUAL\": \"10000\",\n        \"YTD_ACTUAL\": \"50000\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GetCustomerNORResults_Success_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GetCustomerNORResultsRequest\": {\r\n    \"employeeId\": \"12345\",\r\n    \"rmPosition\": \"Relationship Manager\",\r\n    \"groupedBy\": \"Group A\",\r\n    \"selectedCategory\": \"Category X\",\r\n    \"cif\": \"123AB\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/customer/v1/GetCustomerNORRestuls",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetCustomerNORRestuls"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "ServiceHeader",
+										"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"GetCustomerNORResultsRequest\": {\r\n    \"employeeId\": \"12345\",\r\n    \"rmPosition\": \"Relationship Manager\",\r\n    \"groupedBy\": \"Group A\",\r\n    \"selectedCategory\": \"Category X\",\r\n    \"cif\": \"123AB\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/api/customer/v1/GetCustomerNORRestuls",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"customer",
+										"v1",
+										"GetCustomerNORRestuls"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "accept",
+									"value": "*/*"
+								},
+								{
+									"key": "accept-encoding",
+									"value": "gzip, deflate, br"
+								},
+								{
+									"key": "beanpath",
+									"value": "com.dh.middleware.customer.dao.ODSDBConnectorImplDao"
+								},
+								{
+									"key": "operation",
+									"value": "GetCustomerNORREsults"
+								},
+								{
+									"key": "postman-token",
+									"value": "297fcc0a-c854-4031-9cd2-81d564da052f"
+								},
+								{
+									"key": "serviceheader",
+									"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}"
+								},
+								{
+									"key": "system",
+									"value": "ODS"
+								},
+								{
+									"key": "user-agent",
+									"value": "PostmanRuntime/7.37.3"
+								},
+								{
+									"key": "version",
+									"value": "v1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 14:05:44 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"GetCustomerNORResultsResponse\": {\n        \"success\": {\n            \"record\": [\n                {\n                    \"month\": \"Jan\",\n                    \"yearId\": \"2024\",\n                    \"quarter\": \"Q1\",\n                    \"category\": \"Sales\",\n                    \"subType\": \"Type A\",\n                    \"monthActual\": \"10000\",\n                    \"ytdActual\": \"50000\"\n                }\n            ]\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GetCustomerNORResults_Fault_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"GetCustomerNORResultsRequest\": {\r\n    \"employeeId\": \"1234\",\r\n    \"rmPosition\": \"Relationship Manager\",\r\n    \"groupedBy\": \"Group A\",\r\n    \"selectedCategory\": \"Category X\",\r\n    \"cif\": \"123AB\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/customer/v1/GetCustomerNORRestuls",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetCustomerNORRestuls"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fault Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "ServiceHeader",
+										"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"GetCustomerNORResultsRequest\": {\r\n    \"employeeId\": \"1234\",\r\n    \"rmPosition\": \"Relationship Manager\",\r\n    \"groupedBy\": \"Group A\",\r\n    \"selectedCategory\": \"Category X\",\r\n    \"cif\": \"123AB\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/api/customer/v1/GetCustomerNORRestuls",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"customer",
+										"v1",
+										"GetCustomerNORRestuls"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "accept",
+									"value": "*/*"
+								},
+								{
+									"key": "accept-encoding",
+									"value": "gzip, deflate, br"
+								},
+								{
+									"key": "beanpath",
+									"value": "com.dh.middleware.customer.dao.ODSDBConnectorImplDao"
+								},
+								{
+									"key": "operation",
+									"value": "GetCustomerNORREsults"
+								},
+								{
+									"key": "postman-token",
+									"value": "c7d8bb25-45da-42ba-918c-2cbf4fb8e430"
+								},
+								{
+									"key": "serviceheader",
+									"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}"
+								},
+								{
+									"key": "system",
+									"value": "ODS"
+								},
+								{
+									"key": "user-agent",
+									"value": "PostmanRuntime/7.37.3"
+								},
+								{
+									"key": "version",
+									"value": "v1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 14 May 2024 14:06:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"CustomerNORResultsResponse\": {\n        \"fault\": {\n            \"number\": 30,\n            \"description\": \"Record not found\",\n            \"system\": \"MW\",\n            \"nativeError\": \"\",\n            \"nativeDescription\": \"\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
