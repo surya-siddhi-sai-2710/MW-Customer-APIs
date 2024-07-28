@@ -196,4 +196,87 @@ public class ODSDBConnectorImplDao {
 				}
 			return null;
 	}
+	
+	
+	
+	public ObjectNode GetBalanceCertificateDetails(@Simple("${body[GetBalanceCertificateDetailsRequest][cif]}") String cif,
+			@Simple("${body[GetBalanceCertificateDetailsRequest][balanceDate]}") String balanceDate, 
+			Exchange ex)
+			throws Exception {
+		
+//		public ObjectNode GetBalanceCertificateDetails( @Body JsonNode body,
+//		Exchange ex) throws Exception{	
+
+//			JsonNode BalanceCertificateDetailsNode = body.get("GetBalanceCertificateDetailsRequest");
+		
+		Connection conn = null;
+		CallableStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String strProcedure = "CALL GET_BC_DETAILS(?,?,?)";
+			pstmt = conn.prepareCall(strProcedure);
+			
+			pstmt.setString(1, cif);
+			pstmt.setString(2, balanceDate);
+			pstmt.registerOutParameter(3, OracleTypes.CURSOR);
+			
+//			pstmt.setString(1, BalanceCertificateDetailsNode.path("cif").asText());
+//			pstmt.setString(2, BalanceCertificateDetailsNode.path("balanceDate").asText());
+//			pstmt.registerOutParameter(3, OracleTypes.CURSOR);
+			
+			pstmt.execute();
+			
+			rs = (ResultSet) pstmt.getObject(3);
+			ResultSetMetaData rsMetadata = null;
+			rsMetadata = rs.getMetaData();
+			int noOfColumns = rsMetadata.getColumnCount();
+			
+			ObjectNode getBalanceCertificateDetails = JsonNodeFactory.instance.objectNode();
+			
+			while (rs.next()) {
+				ObjectNode oGetBalanceCertificateDetailsNode = getBalanceCertificateDetails.putObject("GetBalanceCertificateDetailsResponse");
+
+				for (int i = 1; i <= noOfColumns; i++) {
+
+					String columnName = rsMetadata.getColumnName(i);
+					String columnValue = rs.getString(i);
+
+					oGetBalanceCertificateDetailsNode.put(columnName, columnValue);
+
+				}
+			}
+			// checking weather the requested data is retrieved or not
+						if (getBalanceCertificateDetails.size() < 1) {
+							return null;
+						} else {
+							return getBalanceCertificateDetails;
+						}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ex.getIn().setBody(e.getMessage());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+	
+				if (null != conn)
+					conn.close();
+			}catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				ex.getIn().setBody(e.getMessage());
+				}
+			}
+		return null;
+		
+	}
+	
 }

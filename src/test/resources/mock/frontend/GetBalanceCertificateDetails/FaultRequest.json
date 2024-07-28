@@ -1,0 +1,6 @@
+{
+  "GetBalanceCertificateDetailsRequest": {
+    "cif": "CIF00",
+    "balanceDate": "22072024"
+  }
+}

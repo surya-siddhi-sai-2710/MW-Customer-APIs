@@ -829,6 +829,118 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "GetBalanceCertificateDetails",
+			"item": [
+				{
+					"name": "GetBalanceCertificateDetails_ODSDB_Response",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"GetBalanceCertificateDetailsRequest\": {\r\n    \"cif\": \"CIF001\",\r\n    \"balanceDate\": \"22072024\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/connector/db/odsdb/v1/GetBalanceCertificateDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"connector",
+								"db",
+								"odsdb",
+								"v1",
+								"GetBalanceCertificateDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBalanceCertificateDetails_Success_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"GetBalanceCertificateDetailsRequest\": {\r\n    \"cif\": \"CIF001\",\r\n    \"balanceDate\": \"22072024\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/customer/v1/GetBalanceCertificateDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetBalanceCertificateDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBalanceCertificateDetails_Fault_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"GetBalanceCertificateDetailsRequest\": {\r\n    \"cif\": \"CIF00\",\r\n    \"balanceDate\": \"22072024\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/customer/v1/GetBalanceCertificateDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetBalanceCertificateDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

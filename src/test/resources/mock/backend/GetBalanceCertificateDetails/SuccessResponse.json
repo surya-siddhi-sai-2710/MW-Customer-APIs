@@ -1,0 +1,15 @@
+{
+    "GetBalanceCertificateDetailsResponse": {
+        "CIF": "CIF001",
+        "ACCOUNTID": "ACC123",
+        "BALANCESAR": "5000",
+        "BALANCEFCY": "2000",
+        "ACCOUNTTYPE": "Savings",
+        "PRODUCTCATEGORY": "Personal",
+        "CURRENCY": "10000",
+        "ACCOUNTSTATUSCODE": "Active code",
+        "ACCOUNTSTATUSDESCRIPTION": "Active account",
+        "BALANCEDATE": "22072024",
+        "BALANCESTATUS": "best"
+    }
+}
