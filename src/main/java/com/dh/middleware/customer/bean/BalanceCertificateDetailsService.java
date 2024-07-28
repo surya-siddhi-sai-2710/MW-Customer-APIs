@@ -104,20 +104,20 @@ public class BalanceCertificateDetailsService {
 		
 		List<AccountBackend> oRecordList = oBalanceCertificateDetailsResponseType.getBalanceCertificateDetailsResponseBknd().getSuccess().getAccount();
 		
-		for(AccountBackend recordBackend : oRecordList) {
+		for(AccountBackend accountBackend : oRecordList) {
 			
 			oRecord = new Account();
-			oRecord.setCif(recordBackend.getCif());
-			oRecord.setAccountId(recordBackend.getAccountId());
-			oRecord.setBalanceSAR(recordBackend.getBalanceSAR());
-			oRecord.setBalanceFCY(recordBackend.getBalanceFCY());
-			oRecord.setAccountType(recordBackend.getAccountType());
-			oRecord.setProductCategory(recordBackend.getProductCategory());
-			oRecord.setCurrency(recordBackend.getCurrency());
-			oRecord.setAccountStatusCode(recordBackend.getAccountStatusCode());
-			oRecord.setAccountStatusDescription(recordBackend.getAccountStatusDescription());
-			oRecord.setBalanceDate(recordBackend.getBalanceDate());
-			oRecord.setBalanceStatus(recordBackend.getBalanceStatus());
+			oRecord.setCif(accountBackend.getCif());
+			oRecord.setAccountId(accountBackend.getAccountId());
+			oRecord.setBalanceSAR(accountBackend.getBalanceSAR());
+			oRecord.setBalanceFCY(accountBackend.getBalanceFCY());
+			oRecord.setAccountType(accountBackend.getAccountType());
+			oRecord.setProductCategory(accountBackend.getProductCategory());
+			oRecord.setCurrency(accountBackend.getCurrency());
+			oRecord.setAccountStatusCode(accountBackend.getAccountStatusCode());
+			oRecord.setAccountStatusDescription(accountBackend.getAccountStatusDescription());
+			oRecord.setBalanceDate(accountBackend.getBalanceDate());
+			oRecord.setBalanceStatus(accountBackend.getBalanceStatus());
 			
 		}
 		

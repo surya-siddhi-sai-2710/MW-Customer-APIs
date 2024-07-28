@@ -46,7 +46,7 @@ public class BalanceCertificateDetailsRouteBuilder extends RouteBuilder{
 				.setHeader("Content-Type", constant("application/json"))
 		
 			.otherwise()
-				.to("bean:oUtils?method=prepareFaultNodeStr(\"BalanceCertificateDetailsResponse\",\"RECORDNOTFOUND\",\"\",\"\",\"\",\"sysOrAppWithoutBkndError\",${exchange})")
+					.to("bean:oUtils?method=prepareFaultNodeStr(\"BalanceCertificateDetailsResponse\",\"RECORDNOTFOUND\",\"\",\"\",\"\",\"sysOrAppWithoutBkndError\",${exchange})")
 		.endChoice();
 		
 	}

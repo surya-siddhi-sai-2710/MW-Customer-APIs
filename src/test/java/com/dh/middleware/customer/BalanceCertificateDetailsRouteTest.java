@@ -24,7 +24,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.dh.middleware.customer.models.GetBalanceCertificateDetails;
-import com.dh.middleware.customer.models.GetCustomerNORResultsType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
@@ -108,14 +107,14 @@ public class BalanceCertificateDetailsRouteTest {
 	@Test
 	public void getBalanceCertificateDetailsFaultTest() throws Exception {
 		
-		String getDetailsRequest = Resources.toString(
+		String getBalanceCertificateDetailsRequest = Resources.toString(
 				Resources.getResource("mock/frontend/GetBalanceCertificateDetails/FaultRequest.json"), Charsets.UTF_8);
 
 		String ApplicationErrorConfigStore = Resources.toString(
 				Resources.getResource("mock/frontend/configStore/ConfigStoreResponse_Application_Errors.json"),
 				Charsets.UTF_8);
 
-		String getDetailsResponse = Resources.toString(
+		String getBalanceCertificateDetailsResponse = Resources.toString(
 				Resources.getResource("mock/backend/GetBalanceCertificateDetails/FaultResponse.json"), Charsets.UTF_8);
 
 		AdviceWith.adviceWith(camelContext, "GetBalanceCertificateDetails", routeBuilder ->
@@ -135,13 +134,13 @@ public class BalanceCertificateDetailsRouteTest {
 		cdmockEndpoint.expectedMessageCount(1);
 		cdmockEndpoint.whenAnyExchangeReceived(new Processor() {
 			public void process(Exchange exchange) throws Exception {
-				exchange.getMessage().setBody(getDetailsResponse);
+				exchange.getMessage().setBody(getBalanceCertificateDetailsResponse);
 			}
 		});
 		
 		camelContext.start();
 
-		GetBalanceCertificateDetails oGetBalanceCertificateDetailsRequest = objectMapper.readValue(getDetailsRequest, GetBalanceCertificateDetails.class);
+		GetBalanceCertificateDetails oGetBalanceCertificateDetailsRequest = objectMapper.readValue(getBalanceCertificateDetailsRequest, GetBalanceCertificateDetails.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");
