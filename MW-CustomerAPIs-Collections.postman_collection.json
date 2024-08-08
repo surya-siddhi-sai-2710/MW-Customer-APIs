@@ -941,6 +941,118 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "GetLastSixMonthsAccountBalance",
+			"item": [
+				{
+					"name": "GetLastSixMonthsAccountBalance_Success_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"LastSixMonthsAccountBalanceRequest\": {\r\n    \"shortCIF\": \"CIF001\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/customer/v1/GetLastSixMonthsAccountBalance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetLastSixMonthsAccountBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLastSixMonthsAccountBalance_Fault_Response",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "ServiceHeader",
+								"value": "{\"tellerId\": \"T123\",\"branchId\": \"B001\",\"channelId\": \"WEB\"}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"LastSixMonthsAccountBalanceRequest\": {\r\n    \"shortCIF\": \"CIF002\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8086/api/customer/v1/GetLastSixMonthsAccountBalance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"customer",
+								"v1",
+								"GetLastSixMonthsAccountBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLastSixMonthsAccountBalance_ODSDB_Response",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"LastSixMonthsAccountBalanceRequest\": {\r\n    \"shortCIF\": \"CIF001\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8088/api/connector/db/odsdb/v1/GetLastSixMonthsAccountBalance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"api",
+								"connector",
+								"db",
+								"odsdb",
+								"v1",
+								"GetLastSixMonthsAccountBalance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

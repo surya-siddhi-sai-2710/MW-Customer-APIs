@@ -11,10 +11,10 @@ public class AccountBackend {
     protected String accountId;
 	
 	@JsonProperty("balanceSAR")
-    protected Integer balanceSAR;
+    protected Double balanceSAR;
 	
 	@JsonProperty("balanceFCY")
-    protected Integer balanceFCY;
+    protected Double balanceFCY;
 	
 	@JsonProperty("accountType")
     protected String accountType;
@@ -23,7 +23,7 @@ public class AccountBackend {
     protected String productCategory;
 	
 	@JsonProperty("currency")
-    protected Integer currency;
+    protected String currency;
 	
 	@JsonProperty("accountStatusCode")
     protected String accountStatusCode;
@@ -56,22 +56,22 @@ public class AccountBackend {
     }
 
 
-    public Integer getBalanceSAR() {
+    public Double getBalanceSAR() {
         return balanceSAR;
     }
 
 
-    public void setBalanceSAR(Integer value) {
+    public void setBalanceSAR(Double value) {
         this.balanceSAR = value;
     }
 
 
-    public Integer getBalanceFCY() {
+    public Double getBalanceFCY() {
         return balanceFCY;
     }
 
 
-    public void setBalanceFCY(Integer value) {
+    public void setBalanceFCY(Double value) {
         this.balanceFCY = value;
     }
 
@@ -94,12 +94,12 @@ public class AccountBackend {
         this.productCategory = value;
     }
 
-    public Integer getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
 
-    public void setCurrency(Integer value) {
+    public void setCurrency(String value) {
         this.currency = value;
     }
 

@@ -1,0 +1,21 @@
+{
+    "LastSixMonthsAccountBalanceResponse": {
+        "monthlyBalance": [
+            {
+                "CIF": "CIF001",
+                "AVGSIXMONTHSBALANCE": "5000",
+                "BALANCE": "6000",
+                "CURRENCY": "USD",
+                "BALANCEDATE": "2024-01-01"
+            },
+            {
+                "CIF": "CIF001",
+                "AVGSIXMONTHSBALANCE": "7000",
+                "BALANCE": "9000",
+                "CURRENCY": "USD",
+                "BALANCEDATE": "2024-05-10"
+            }
+        ],
+        "AVGSIXMONTHSBALANCE": "7000"
+    }
+}

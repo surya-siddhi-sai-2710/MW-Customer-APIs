@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import oracle.jdbc.OracleTypes;
@@ -153,21 +154,27 @@ public class ODSDBConnectorImplDao {
 			
 			ObjectNode getCustomerNORResultsDetails = JsonNodeFactory.instance.objectNode();
 			
+			ObjectNode oGetCustomerNORResultsNode = getCustomerNORResultsDetails.putObject("GetCustomerNORResultsResponse");
+			
+			ArrayNode oRecordArrayNode = oGetCustomerNORResultsNode.putArray("record");
+			
 			while (rs.next()) {
-				ObjectNode oGetCustomerNORResultsNode = getCustomerNORResultsDetails.putObject("GetCustomerNORResultsResponse");
+				
+				ObjectNode oRecordObjectNode = JsonNodeFactory.instance.objectNode();
 
 				for (int i = 1; i <= noOfColumns; i++) {
 
 					String columnName = rsMetadata.getColumnName(i);
 					String columnValue = rs.getString(i);
 
-					oGetCustomerNORResultsNode.put(columnName, columnValue);
+					oRecordObjectNode.put(columnName, columnValue);
 
 				}
+				oRecordArrayNode.add(oRecordObjectNode);
 			}
 			
 			// checking weather the requested data is retrieved or not
-			if (getCustomerNORResultsDetails.size() < 1) {
+			if (oRecordArrayNode.size() < 1) {
 				return null;
 			} else {
 				return getCustomerNORResultsDetails;
@@ -235,24 +242,30 @@ public class ODSDBConnectorImplDao {
 			
 			ObjectNode getBalanceCertificateDetails = JsonNodeFactory.instance.objectNode();
 			
+			ObjectNode oGetBalanceCertificateDetailsNode = getBalanceCertificateDetails.putObject("GetBalanceCertificateDetailsResponse");
+			
+			ArrayNode oRecordArrayNode = oGetBalanceCertificateDetailsNode.putArray("account");
+			
 			while (rs.next()) {
-				ObjectNode oGetBalanceCertificateDetailsNode = getBalanceCertificateDetails.putObject("GetBalanceCertificateDetailsResponse");
+				
+				ObjectNode oRecordObjectNode = JsonNodeFactory.instance.objectNode();
 
 				for (int i = 1; i <= noOfColumns; i++) {
 
 					String columnName = rsMetadata.getColumnName(i);
 					String columnValue = rs.getString(i);
 
-					oGetBalanceCertificateDetailsNode.put(columnName, columnValue);
+					oRecordObjectNode.put(columnName, columnValue);
 
 				}
+				oRecordArrayNode.add(oRecordObjectNode);
 			}
 			// checking weather the requested data is retrieved or not
-						if (getBalanceCertificateDetails.size() < 1) {
-							return null;
-						} else {
-							return getBalanceCertificateDetails;
-						}
+			if (getBalanceCertificateDetails.size() < 1) {
+				return null;
+			} else {
+				return getBalanceCertificateDetails;
+			}
 			
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -278,5 +291,86 @@ public class ODSDBConnectorImplDao {
 		return null;
 		
 	}
+	
+	public ObjectNode GetLastSixMonthsAccountBalance(@Simple("${body[LastSixMonthsAccountBalanceRequest][shortCIF]}") String cif,
+			Exchange ex) throws Exception {
+				
+//		public ObjectNode LastSixMonthsAccountBalance( @Body JsonNode body,
+//				Exchange ex) throws Exception{	
+//
+//					JsonNode LastSixMonthsAccountBalanceNode = body.get("LastSixMonthsAccountBalanceRequest");
+					
+		Connection conn = null;
+		CallableStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = dataSource.getConnection();
+			String strProcedure = "CALL SIX_M_ACCBAL(?,?)";
+			pstmt = conn.prepareCall(strProcedure);
+
+			pstmt.setString(1, cif);
+			pstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+//						pstmt.setString(1, LastSixMonthsAccountBalanceNode.path("shortCIF").asText());
+//						pstmt.registerOutParameter(2, OracleTypes.CURSOR);
+
+			pstmt.execute();
+
+			rs = (ResultSet) pstmt.getObject(2);
+			ResultSetMetaData rsMetadata = null;
+			rsMetadata = rs.getMetaData();
+			int noOfColumns = rsMetadata.getColumnCount();
+
+			ObjectNode lastSixMonthsAccountBalance = JsonNodeFactory.instance.objectNode();
+
+			ObjectNode oLastSixMonthsAccountBalanceNode = lastSixMonthsAccountBalance
+					.putObject("LastSixMonthsAccountBalanceResponse");
+
+			ArrayNode oRecordArrayNode = oLastSixMonthsAccountBalanceNode.putArray("monthlyBalance");
+
+			while (rs.next()) {
+
+				ObjectNode oRecordObjectNode = JsonNodeFactory.instance.objectNode();
+				oLastSixMonthsAccountBalanceNode.put("AVGSIXMONTHSBALANCE", rs.getString(2));
+
+				for (int i = 1; i <= noOfColumns; i++) {
+
+					String columnName = rsMetadata.getColumnName(i);
+					String columnValue = rs.getString(i);
+
+					oRecordObjectNode.put(columnName, columnValue);
+
+				}
+				oRecordArrayNode.add(oRecordObjectNode);
+
+			}
+			
+			if (oRecordArrayNode.size() < 1) {
+                return null;
+            } else {
+                return lastSixMonthsAccountBalance;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            ex.getIn().setBody(e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                ex.getIn().setBody(e.getMessage());
+            }
+        }
+        return null;
+    }
 	
 }

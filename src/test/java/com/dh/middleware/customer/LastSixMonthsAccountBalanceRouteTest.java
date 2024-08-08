@@ -23,7 +23,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.dh.middleware.customer.models.GetBalanceCertificateDetails;
+import com.dh.middleware.customer.models.LastSixMonthsAccountBalance;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
@@ -39,7 +39,7 @@ import com.google.common.io.Resources;
 @PropertySource("classpath:application-test.properties")
 @Configuration
 @ComponentScan("com.dh.middleware.customer.*")
-public class BalanceCertificateDetailsRouteTest {
+public class LastSixMonthsAccountBalanceRouteTest {
 
 	@Autowired
 	CamelContext camelContext;
@@ -50,38 +50,40 @@ public class BalanceCertificateDetailsRouteTest {
 	@Autowired
 	ProducerTemplate producerTemplate;
 	
-	@EndpointInject("mock://http:localhost:8088/api/connector/db/odsdb/v1/GetBalanceCertificateDetails")
+	@EndpointInject("mock://http:localhost:8088/api/connector/db/odsdb/v1/GetLastSixMonthsAccountBalance")
 	private MockEndpoint cdmockEndpoint;
 
 	@EndpointInject("mock://http:localhost:8081/api/connector/configstore")
 	private MockEndpoint configStore;
 	
+	
+	
 	@Test
-	public void balanceCertificateDetailsSuccessTest() throws Exception {
+	public void lastSixMonthsAccountBalanceSuccessTest() throws Exception {
 		
-		String getbalanceCertificateRequest = Resources.toString(
-				Resources.getResource("mock/frontend/GetBalanceCertificateDetails/SuccessRequest.json"), Charsets.UTF_8);
+		String getLastSixMonthsAccountBalanceRequest = Resources.toString(
+				Resources.getResource("mock/frontend/GetLastSixMonthsAccountBalance/SuccessRequest.json"), Charsets.UTF_8);
 
 		String ApplicationErrorConfigStore = Resources.toString(
 				Resources.getResource("mock/frontend/configStore/ConfigStoreResponse_Application_Errors.json"),
 				Charsets.UTF_8);
 
-		String getbalanceCertificateResponse = Resources.toString(
-				Resources.getResource("mock/backend/GetBalanceCertificateDetails/SuccessResponse.json"), Charsets.UTF_8);
+		String getLastSixMonthsAccountBalanceResponse = Resources.toString(
+				Resources.getResource("mock/backend/GetLastSixMonthsAccountBalance/SuccessResponse.json"), Charsets.UTF_8);
 
-		AdviceWith.adviceWith(camelContext, "GetBalanceCertificateDetails", routeBuilder ->
+		AdviceWith.adviceWith(camelContext, "GetLastSixMonthsAccountBalance", routeBuilder ->
 
 		{
-			routeBuilder.replaceFromWith("direct:getBalanceCertificateDetailsRoute");
+			routeBuilder.replaceFromWith("direct:getLastSixMonthsAccountBalanceRoute");
 		});
 		
 		cdmockEndpoint.expectedMessageCount(1);
 		cdmockEndpoint.whenAnyExchangeReceived(new Processor() {
 			public void process(Exchange exchange) throws Exception {
-				exchange.getMessage().setBody(getbalanceCertificateResponse);
+				exchange.getMessage().setBody(getLastSixMonthsAccountBalanceResponse);
 			}
 		});
-
+		
 		configStore.expectedMessageCount(1);
 		configStore.whenAnyExchangeReceived(new Processor() {
 			public void process(Exchange exchange) throws Exception {
@@ -91,38 +93,44 @@ public class BalanceCertificateDetailsRouteTest {
 		
 		camelContext.start();
 
-		GetBalanceCertificateDetails oGetBalanceCertificateDetailsRequest = objectMapper.readValue(getbalanceCertificateRequest, GetBalanceCertificateDetails.class);
+		LastSixMonthsAccountBalance oLastSixMonthsAccountBalanceRequest = objectMapper.readValue(getLastSixMonthsAccountBalanceRequest, LastSixMonthsAccountBalance.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");
 
-		GetBalanceCertificateDetails successResponse = producerTemplate.requestBodyAndHeaders("direct:getBalanceCertificateDetailsRoute", oGetBalanceCertificateDetailsRequest,  headers, GetBalanceCertificateDetails.class);
+		LastSixMonthsAccountBalance successResponse = producerTemplate.requestBodyAndHeaders("direct:getLastSixMonthsAccountBalanceRoute", oLastSixMonthsAccountBalanceRequest,  headers, LastSixMonthsAccountBalance.class);
 
-		System.out.println("GetBalanceCertificateDetailsResponse " + successResponse.getBalanceCertificateDetailsResponse().getSuccess().getAccount());
+		System.out.println("LastSixMonthsAccountBalanceResponse " + successResponse.getLastSixMonthsAccountBalanceResponse().getSuccess().getAverageSixMonthsBalance());
 
-		Assertions.assertNotNull(successResponse.getBalanceCertificateDetailsResponse().getSuccess().getAccount());
+		Assertions.assertNotNull(successResponse.getLastSixMonthsAccountBalanceResponse().getSuccess().getAverageSixMonthsBalance());
 		
 	}
 	
 	@Test
-	public void getBalanceCertificateDetailsFaultTest() throws Exception {
+	public void lastSixMonthsAccountBalanceFaultTest() throws Exception {
 		
-		String getBalanceCertificateDetailsRequest = Resources.toString(
-				Resources.getResource("mock/frontend/GetBalanceCertificateDetails/FaultRequest.json"), Charsets.UTF_8);
+		String getLastSixMonthsAccountBalanceRequest = Resources.toString(
+				Resources.getResource("mock/frontend/GetLastSixMonthsAccountBalance/FaultRequest.json"), Charsets.UTF_8);
 
 		String ApplicationErrorConfigStore = Resources.toString(
 				Resources.getResource("mock/frontend/configStore/ConfigStoreResponse_Application_Errors.json"),
 				Charsets.UTF_8);
 
-		String getBalanceCertificateDetailsResponse = Resources.toString(
-				Resources.getResource("mock/backend/GetBalanceCertificateDetails/FaultResponse.json"), Charsets.UTF_8);
+		String getLastSixMonthsAccountBalanceResponse = Resources.toString(
+				Resources.getResource("mock/backend/GetLastSixMonthsAccountBalance/FaultResponse.json"), Charsets.UTF_8);
 
-		AdviceWith.adviceWith(camelContext, "GetBalanceCertificateDetails", routeBuilder ->
+		AdviceWith.adviceWith(camelContext, "GetLastSixMonthsAccountBalance", routeBuilder ->
 
 		{
-			routeBuilder.replaceFromWith("direct:getBalanceCertificateDetailsRoute");
+			routeBuilder.replaceFromWith("direct:getLastSixMonthsAccountBalanceRoute");
 		});
 		
+		cdmockEndpoint.expectedMessageCount(1);
+		cdmockEndpoint.whenAnyExchangeReceived(new Processor() {
+			public void process(Exchange exchange) throws Exception {
+				exchange.getMessage().setBody(getLastSixMonthsAccountBalanceResponse);
+			}
+		});
 		
 		configStore.expectedMessageCount(1);
 		configStore.whenAnyExchangeReceived(new Processor() {
@@ -130,27 +138,18 @@ public class BalanceCertificateDetailsRouteTest {
 				exchange.getMessage().setBody(ApplicationErrorConfigStore);
 			}
 		});
-
-		cdmockEndpoint.expectedMessageCount(1);
-		cdmockEndpoint.whenAnyExchangeReceived(new Processor() {
-			public void process(Exchange exchange) throws Exception {
-				exchange.getMessage().setBody(getBalanceCertificateDetailsResponse);
-			}
-		});
 		
 		camelContext.start();
-
-		GetBalanceCertificateDetails oGetBalanceCertificateDetailsRequest = objectMapper.readValue(getBalanceCertificateDetailsRequest, GetBalanceCertificateDetails.class);
+		
+		LastSixMonthsAccountBalance oLastSixMonthsAccountBalanceRequest = objectMapper.readValue(getLastSixMonthsAccountBalanceRequest, LastSixMonthsAccountBalance.class);
 
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("ServiceHeader", "{  \"tellerId\": \"T123\", \"branchId\": \"B001\",\"channelId\": \"WEB\"}");
 
-		String faultResponse = producerTemplate.requestBodyAndHeaders("direct:getBalanceCertificateDetailsRoute",
-				oGetBalanceCertificateDetailsRequest, headers, String.class);
-
+		String faultResponse = producerTemplate.requestBodyAndHeaders("direct:getLastSixMonthsAccountBalanceRoute", oLastSixMonthsAccountBalanceRequest,  headers, String.class);
+		
 		System.out.println("Fault response: " + faultResponse);
-
+		
 		Assertions.assertNotNull(faultResponse.contains("Record not found"));
 	}
-	
 }

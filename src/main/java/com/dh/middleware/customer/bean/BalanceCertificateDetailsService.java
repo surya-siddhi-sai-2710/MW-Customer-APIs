@@ -70,21 +70,30 @@ public class BalanceCertificateDetailsService {
 		BalanceCertificateSuccessBknd success = new BalanceCertificateSuccessBknd();
 		List<AccountBackend> oRecordList = new ArrayList<AccountBackend>();
 		
-		AccountBackend oRecordBackend = new AccountBackend();
+		JsonNode oRecordArrayNode = BalanceCertificateDetailsNode.get("account");
 		
-		oRecordBackend.setCif(BalanceCertificateDetailsNode.get("CIF").asText());
-		oRecordBackend.setAccountId(BalanceCertificateDetailsNode.get("ACCOUNTID").asText());
-		oRecordBackend.setBalanceSAR(BalanceCertificateDetailsNode.get("BALANCESAR").asInt());
-		oRecordBackend.setBalanceFCY(BalanceCertificateDetailsNode.get("BALANCEFCY").asInt());
-		oRecordBackend.setAccountType(BalanceCertificateDetailsNode.get("ACCOUNTTYPE").asText());
-		oRecordBackend.setProductCategory(BalanceCertificateDetailsNode.get("PRODUCTCATEGORY").asText());
-		oRecordBackend.setCurrency(BalanceCertificateDetailsNode.get("CURRENCY").asInt());
-		oRecordBackend.setAccountStatusCode(BalanceCertificateDetailsNode.get("ACCOUNTSTATUSCODE").asText());
-		oRecordBackend.setAccountStatusDescription(BalanceCertificateDetailsNode.get("ACCOUNTSTATUSDESCRIPTION").asText());
-		oRecordBackend.setBalanceDate(BalanceCertificateDetailsNode.get("BALANCEDATE").asText());
-		oRecordBackend.setBalanceStatus(BalanceCertificateDetailsNode.get("BALANCESTATUS").asText());
+		if (oRecordArrayNode.isArray()) {
+			
+			for (JsonNode recordNode : oRecordArrayNode) {
+				
+				AccountBackend oRecordBackend = new AccountBackend();
+				
+				oRecordBackend.setCif(recordNode.get("CIF").asText());
+				oRecordBackend.setAccountId(recordNode.get("ACCOUNTID").asText());
+				oRecordBackend.setBalanceSAR(recordNode.get("BALANCESAR").asDouble());
+				oRecordBackend.setBalanceFCY(recordNode.get("BALANCEFCY").asDouble());
+				oRecordBackend.setAccountType(recordNode.get("ACCOUNTTYPE").asText());
+				oRecordBackend.setProductCategory(recordNode.get("PRODUCTCATEGORY").asText());
+				oRecordBackend.setCurrency(recordNode.get("CURRENCY").asText());
+				oRecordBackend.setAccountStatusCode(recordNode.get("ACCOUNTSTATUSCODE").asText());
+				oRecordBackend.setAccountStatusDescription(recordNode.get("ACCOUNTSTATUSDESCRIPTION").asText());
+				oRecordBackend.setBalanceDate(recordNode.get("BALANCEDATE").asText());
+				oRecordBackend.setBalanceStatus(recordNode.get("BALANCESTATUS").asText());
+				
+				oRecordList.add(oRecordBackend);
+			}
+		}
 		
-		oRecordList.add(oRecordBackend);
 		success.setAccount(oRecordList);
 		oBalanceCertificateDetailsResponseBknd.setSuccess(success);
 		oBalanceCertificateDetailsResponseType.setBalanceCertificateDetailsResponseBknd(oBalanceCertificateDetailsResponseBknd);
@@ -119,9 +128,10 @@ public class BalanceCertificateDetailsService {
 			oRecord.setBalanceDate(accountBackend.getBalanceDate());
 			oRecord.setBalanceStatus(accountBackend.getBalanceStatus());
 			
+			account.add(oRecord);
 		}
 		
-		account.add(oRecord);
+		
 		success.setAccount(account);
 		getBalanceCertificateDetailsResponse.setSuccess(success);
 		getBalanceCertificateDetails.setBalanceCertificateDetailsResponse(getBalanceCertificateDetailsResponse);

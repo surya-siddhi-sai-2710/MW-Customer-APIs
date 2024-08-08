@@ -73,17 +73,25 @@ public class CustomerNORResultsService {
 		SuccessBackend oSuccessBackend = new SuccessBackend();
 		List<RecordBackend> oRecordList = new ArrayList<RecordBackend>();
 		
-		RecordBackend oRecordBackend = new RecordBackend();
+		JsonNode oRecordArrayNode = oEmployerDetailsNode.get("record");
 		
-		oRecordBackend.setMonth(oEmployerDetailsNode.get("MONTH").asText());
-		oRecordBackend.setYearId(oEmployerDetailsNode.get("YEAR_ID").asText());
-		oRecordBackend.setQuarter(oEmployerDetailsNode.get("QUARTER").asText());
-		oRecordBackend.setCategory(oEmployerDetailsNode.get("CATEGORY").asText());
-		oRecordBackend.setSubType(oEmployerDetailsNode.get("SUB_TYPE").asText());
-		oRecordBackend.setMonthActual(oEmployerDetailsNode.get("MONTH_ACTUAL").asText());
-		oRecordBackend.setYtdActual(oEmployerDetailsNode.get("YTD_ACTUAL").asText());
-		
-		oRecordList.add(oRecordBackend);
+		if (oRecordArrayNode.isArray()) {
+
+			for (JsonNode recordNode : oRecordArrayNode) {
+
+				RecordBackend oRecordBackend = new RecordBackend();
+
+				oRecordBackend.setMonth(recordNode.get("MONTH").asText());
+				oRecordBackend.setYearId(recordNode.get("YEAR_ID").asText());
+				oRecordBackend.setQuarter(recordNode.get("QUARTER").asText());
+				oRecordBackend.setCategory(recordNode.get("CATEGORY").asText());
+				oRecordBackend.setSubType(recordNode.get("SUB_TYPE").asText());
+				oRecordBackend.setMonthActual(recordNode.get("MONTH_ACTUAL").asText());
+				oRecordBackend.setYtdActual(recordNode.get("YTD_ACTUAL").asText());
+
+				oRecordList.add(oRecordBackend);
+			}
+		}
 		oSuccessBackend.setRecord(oRecordList);
 		oCustomerNORResultsResponse.setSuccessBackend(oSuccessBackend);
 		oCustomerNORResultsResponseType.setCustomerNORResultsResponse(oCustomerNORResultsResponse);
@@ -112,6 +120,8 @@ public class CustomerNORResultsService {
 			oRecord.setSubType(recordBackend.getSubType());
 			oRecord.setMonthActual(recordBackend.getMonthActual());
 			oRecord.setYtdActual(recordBackend.getYtdActual());
+			
+			oRecordList.add(oRecord);
 		}
 		
 		oRecordList.add(oRecord);
